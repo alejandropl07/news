@@ -1,4 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
+import Formulario from './components/Formulario';
+import Header from './components/Header';
+import ListaNoticias from './components/ListaNoticias';
 
 class App extends Component {
   state = {
@@ -10,7 +13,7 @@ class App extends Component {
   }
 
   consultarApiNoticias  = async ()  =>  {
-    const url = `https://newsapi.org/v2/top-headlines?country=mx&category=business&apiKey=b9b441a96036442090555e3cf957784c`;
+    const url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=b9b441a96036442090555e3cf957784c`;
     const respuesta = await fetch(url);
     const noticias  = await respuesta.json();
 
@@ -21,7 +24,16 @@ class App extends Component {
 
   render(){
     return(
-      <h1>API Noticias</h1>
+      <Fragment>
+        <Header
+        titulo= 'USA News'/>
+
+        <div  className='container  white contenedor-noticias'>
+          <Formulario/>
+          <ListaNoticias
+          noticias={this.state.noticias}/>
+        </div>
+      </Fragment>
     );
   }
 }
